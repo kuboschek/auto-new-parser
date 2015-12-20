@@ -16,9 +16,11 @@
 #include <stdlib.h>
 
 #define STX_VAL 0xEE
+#define ESC_VAL 0x30
 #define DEBUG
 
 enum parse_state the_state = IDLE;
+enum parse_state prev_state = IDLE;
 uint8_t data_pos = 0;
 
 void print_byte(uint8_t byte) {
@@ -30,7 +32,26 @@ void print_byte(uint8_t byte) {
 
 int parse_byte(frame_t* frm, uint8_t byte) {
   if(frm == NULL)
-  return -1;
+    return -1;
+
+  if(byte == ESC_VAL) {
+    prev_state = the_state;
+    the_state = AFTER_ESC;
+    return 0;
+  }
+
+  if(the_state == AFTER_ESC) {
+    // Restore previous state
+    the_state = prev_state;
+  } else {
+    if(byte == STX_VAL) {
+      // Dump current message, a new one is arriving
+      prev_state = the_state = IDLE;
+      if(frm->data != NULL) {
+        free(frm->data);
+      }
+    }
+  }
 
   switch(the_state) {
     case IDLE:
