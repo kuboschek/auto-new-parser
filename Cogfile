@@ -1,0 +1,2 @@
+handle.c -d -o out/handle.c
+msg_defs.h -d -o out/msg_defs.h
