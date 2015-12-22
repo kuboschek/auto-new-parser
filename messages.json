@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "messages": [
+    {
+      "id": 1,
+      "name": "sleep_mode",
+      "fields": [
+        { "name": "MODE", "type": "uint8_t" }
+      ],
+      "generate_req": true
+    }
+  ]
+}
