@@ -134,9 +134,16 @@ int parse_byte(frame_t* frm, uint8_t byte) {
   return 0;
 }
 
+void escape(uint8_t byte, void (*send_byte)(uint8_t)) {
+  if(byte == STX_VAL || byte == ESC_VAL)
+    send_byte(ESC_VAL);
+
+  send_byte(byte);
+}
+
 int send_msg(frame_t* frm, void (*send_byte)(uint8_t)) {
   if(frm == NULL)
-  return -1;
+    return -1;
 
   //Update CRC
   uint16_t calc_crc = 0xFFFF;
@@ -153,15 +160,15 @@ int send_msg(frame_t* frm, void (*send_byte)(uint8_t)) {
   send_byte(STX_VAL);
 
   //LEN
-  send_byte(frm->data_len);
+  escape(frm->data_len, send_byte);
 
   //DATA
   for(int i = 0; i < frm->data_len; i++)
-  send_byte(frm->data[i]);
+    escape(frm->data[i], send_byte);
 
   //CRC
-  send_byte((char) (frm->crc >> 8));
-  send_byte((char) (frm->crc & 0xFF));
+  escape((char) (frm->crc >> 8), send_byte);
+  escape((char) (frm->crc & 0xFF), send_byte);
 
 
   return 1;
