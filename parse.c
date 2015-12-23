@@ -34,22 +34,22 @@ int parse_byte(frame_t* frm, uint8_t byte) {
   if(frm == NULL)
     return -1;
 
-  if(byte == ESC_VAL) {
-    prev_state = the_state;
-    the_state = AFTER_ESC;
-    return 0;
-  }
-
   if(the_state == AFTER_ESC) {
     // Restore previous state
     the_state = prev_state;
-  } else {
+  } else if(the_state != STX && the_state != IDLE) {
     if(byte == STX_VAL) {
       // Dump current message, a new one is arriving
       prev_state = the_state = IDLE;
       if(frm->data != NULL) {
         free(frm->data);
       }
+    }
+
+    if(byte == ESC_VAL) {
+      prev_state = the_state;
+      the_state = AFTER_ESC;
+      return 0;
     }
   }
 
