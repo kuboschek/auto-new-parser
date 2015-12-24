@@ -1,2 +1,5 @@
 handle.c -d -o out/handle.c
+handle.h -d -o out/handle.h
 msg_defs.h -d -o out/msg_defs.h
+parse.c -d -o out/parse.c
+parse.h -d -o out/parse.h
