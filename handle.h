@@ -3,9 +3,10 @@
 #ifndef _HANDLE_H_
 #define _HANDLE_H_
 
-void handle_frame(frame_t *frm);
+void set_handler(uint8_t msg_id, void (*handler)(frame_t*));
 
-//TODO Generate handlers for every message
-void handle_modus_msg(msg_modus_t* msg);
+void set_default_handler(void (*handler)(frame_t*));
+
+void handle_frame(frame_t *frm);
 
 #endif
