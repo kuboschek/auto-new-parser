@@ -16,7 +16,8 @@ enum parse_state {
   LEN,    // Length byte -> DATA state
   DATA,   // More data -> DATA state, last data -> CRCH state
   CRCH,   // CRCH byte -> CRCL state
-  CRCL    // CRCL byte -> check CRC, IDLE state
+  CRCL,    // CRCL byte -> check CRC, IDLE state
+  AFTER_ESC // Entered after ESC byte is received.
 };
 
 typedef struct {
