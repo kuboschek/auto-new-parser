@@ -64,6 +64,7 @@ def fetch_from_docs():
                 msg = {
                     'id':int(row[0]),
                     'name':m_name,
+                    'comment':row[3],
                     'fields':fields,
                     'generate_req':False,
                 }
