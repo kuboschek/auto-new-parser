@@ -4,7 +4,8 @@ import datetime
 
 import json
 import csv
-import urllib2
+import urllib.request
+import codecs
 
 """
 Row names are:
@@ -34,8 +35,8 @@ def fetch_from_docs():
     doc_key = "1sd0Kv8KWm5AEQv1o5sLPzUiSmL4zypjoT5Xa6dOiU9E"
     doc_url = "https://docs.google.com/spreadsheet/pub?key=" + doc_key + "&output=csv"
 
-    resp = urllib2.urlopen(doc_url)
-    cr = csv.reader(resp)
+    resp = urllib.request.urlopen(doc_url)
+    cr = csv.reader(codecs.iterdecode(resp, 'utf-8'))
 
     messages = []
 
