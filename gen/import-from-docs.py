@@ -9,7 +9,7 @@ import codecs
 
 """
 Row names are:
-    IDdec, IDhex, Name, Description, Length, Nichts,
+    IDdec, IDhex, Name, Description, Nichts,
 
     Field1, Field2, Field3, Field4, Field5, Field6, Field7, Field8,
 
@@ -55,7 +55,7 @@ def fetch_from_docs():
         # If the name is not empty
         if row[2] != "":
             try:
-                for i in range(6, 13):
+                for i in range(5, 12):
                     try:
                         fstr = row[i].split(' ')
                         fields.append({'name':fstr[1], 'type':simplify_type(fstr[0])})
