@@ -28,6 +28,15 @@ def simplify_type(type_str):
     elif type_str == 'u32':
         return 'uint32_t'
 
+    elif type_str == 's8':
+        return 'int8_t'
+
+    elif type_str == 's16':
+        return 'int16_t'
+
+    elif type_str == 's32':
+        return 'int32_t'
+
     else:
         return type_str
 
