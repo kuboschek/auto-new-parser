@@ -6,9 +6,6 @@
 */
 
 
-#include "uart.h"
-#include "pfdb.h"
-
 #include "parse.h"
 #include "stdio.h"
 
@@ -22,13 +19,6 @@
 enum parse_state the_state = IDLE;
 enum parse_state prev_state = IDLE;
 uint8_t data_pos = 0;
-
-void print_byte(uint8_t byte) {
-  char str[3];
-
-  sprintf(str, "%X", byte);
-  uart1_puts(str);
-}
 
 int parse_byte(frame_t* frm, uint8_t byte) {
   if(frm == NULL)
@@ -118,10 +108,6 @@ int parse_byte(frame_t* frm, uint8_t byte) {
       //dbg_info("Msg CRC is: %d, Calc CRC is: %d", frm->crc, calc_crc);
 
       the_state = IDLE;
-
-      if(calc_crc != frm->crc) {
-        uart1_puts("Incorrect CRC.\n");
-      }
 
       if(calc_crc == frm->crc)
         return 1;
