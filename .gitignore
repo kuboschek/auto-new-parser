@@ -1,6 +1,11 @@
 /out
 messages.json
 
+# Ignore local little helper scripts
+alles.sh
+alles.bat
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
