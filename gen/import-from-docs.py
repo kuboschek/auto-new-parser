@@ -53,9 +53,17 @@ def fetch_from_docs():
                     except IndexError as idx_er:
                         pass
 
+                # TODO Make this look decent
+                m_name = row[2].lower()
+                m_name = m_name.replace(' ', '_')
+                m_name = m_name.replace('/', '')
+                m_name = m_name.replace('?', '')
+                m_name = m_name.replace('!', '')
+                m_name = m_name.replace(';', '')
+
                 msg = {
                     'id':int(row[0]),
-                    'name':row[2],
+                    'name':m_name,
                     'fields':fields,
                     'generate_req':False,
                 }
